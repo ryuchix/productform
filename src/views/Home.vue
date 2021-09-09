@@ -21,6 +21,7 @@
                 <ion-card-content>
                     <ion-button expand="block" @click="login">Login</ion-button>
                 </ion-card-content>
+                <a href="forgot-password">Forgot password?</a>
             </ion-card>
         </ion-content>
     </ion-page>
@@ -39,7 +40,7 @@ export default defineComponent({
         IonTitle,
         IonToolbar,
         IonInput,
-        IonCheckbox 
+        IonCheckbox,
     },
     data() {
         return {
