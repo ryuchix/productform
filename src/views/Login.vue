@@ -1,18 +1,18 @@
 <template>
     <ion-page>
         <ion-content :fullscreen="true">
-            <ion-card class="login-container">
+            <ion-card class="container">
                 <ion-card-header>
                     <ion-card-title class="title">Login</ion-card-title>
                     <ion-card-subtitle class="subtitle">Use your credentials to login.</ion-card-subtitle>
                 </ion-card-header>
                 <ion-item>
                     <ion-label position="floating">Username</ion-label>
-                    <ion-input type="text" v-model="username"></ion-input>
+                    <ion-input type="text" v-model="data.username"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating">Password</ion-label>
-                    <ion-input type="password" v-model="password"></ion-input>
+                    <ion-input type="password" v-model="data.password"></ion-input>
                 </ion-item>
                 <ion-card-content class="remember">
                     <ion-checkbox></ion-checkbox>
@@ -21,14 +21,14 @@
                 <ion-card-content>
                     <ion-button expand="block" @click="login">Login</ion-button>
                 </ion-card-content>
-                <a href="forgot-password">Forgot password?</a>
+                <router-link to="/forgot-password">Forgot password?</router-link>
             </ion-card>
         </ion-content>
     </ion-page>
 </template>
 
 <script>
-import { IonContent, IonCheckbox, IonHeader, IonPage, IonTitle, IonToolbar, IonInput } from '@ionic/vue';
+import { IonContent, IonCheckbox, IonButtons, IonMenuButton, IonHeader, IonPage, IonTitle, IonToolbar, IonInput } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -41,23 +41,32 @@ export default defineComponent({
         IonToolbar,
         IonInput,
         IonCheckbox,
+        IonMenuButton,
+        IonButtons
     },
     data() {
         return {
-            username: '',
-            password: ''
+            data: {
+                username: '',
+                password: ''
+            },
+            buttonText: 'Back',
+            buttonIcon: ''
         }
     },
     methods: {
         login() {
-            console.log(this.username)
+            console.log(this.data)
+        },
+        back() {
+            this.$router.back()
         }
     }
 });
 </script>
 
 <style scoped lang="scss">
-.login-container {
+.container {
     text-align: center;
     position: absolute;
     left: 0;
