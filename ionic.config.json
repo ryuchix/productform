@@ -1,0 +1,7 @@
+{
+  "name": "productform",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
