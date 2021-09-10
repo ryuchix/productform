@@ -2,7 +2,7 @@
   <ion-app>
     <ion-header>
         <ion-toolbar>
-        <ion-buttons slot="start">
+        <ion-buttons>
             <ion-back-button default-href="home" @click="back"></ion-back-button>
         </ion-buttons>
         </ion-toolbar>
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { IonApp, IonRouterOutlet, IonButtons, IonMenuButton, IonToolbar} from '@ionic/vue';
+import { IonApp, IonRouterOutlet, IonButtons, IonMenuButton, IonToolbar, IonHeader, IonBackButton} from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -22,7 +22,9 @@ export default defineComponent({
         IonRouterOutlet,
         IonButtons,
         IonMenuButton,
-        IonToolbar
+        IonToolbar,
+        IonHeader,
+        IonBackButton
     },
     methods: {
         back() {

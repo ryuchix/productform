@@ -7,8 +7,8 @@
                     <ion-card-subtitle class="subtitle">Use your credentials to login.</ion-card-subtitle>
                 </ion-card-header>
                 <ion-item>
-                    <ion-label position="floating">Username</ion-label>
-                    <ion-input type="text" v-model="data.username"></ion-input>
+                    <ion-label position="floating">Email address</ion-label>
+                    <ion-input type="email" v-model="data.email"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating">Password</ion-label>
@@ -19,47 +19,53 @@
                     <ion-label>Remember login</ion-label>
                 </ion-card-content>
                 <ion-card-content>
-                    <ion-button expand="block" @click="login">Login</ion-button>
+                    <ion-button expand="block" @click="handleClick">Login</ion-button>
                 </ion-card-content>
-                <router-link to="/forgot-password">Forgot password?</router-link>
+                <div>
+                    <router-link to="/forgot-password">Forgot password?</router-link>
+                </div>
+                <div>
+                    <router-link to="/register">Sign up here</router-link>
+                </div>
             </ion-card>
         </ion-content>
     </ion-page>
 </template>
 
 <script>
-import { IonContent, IonCheckbox, IonButtons, IonMenuButton, IonHeader, IonPage, IonTitle, IonToolbar, IonInput } from '@ionic/vue';
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
+import { mapState, mapActions } from 'vuex'
 
 export default defineComponent({
-    name: 'Home',
+    name: 'Login',
     components: {
-        IonContent,
-        IonHeader,
-        IonPage,
-        IonTitle,
-        IonToolbar,
-        IonInput,
-        IonCheckbox,
-        IonMenuButton,
-        IonButtons
+        //
     },
     data() {
         return {
             data: {
-                username: '',
+                email: '',
                 password: ''
             },
-            buttonText: 'Back',
-            buttonIcon: ''
+            submitted: false
         }
     },
+    computed: {
+        ...mapState('account', ['status'])
+    },
+    created () {
+        // reset login status
+        // this.logout();
+    },
     methods: {
-        login() {
-            console.log(this.data)
-        },
-        back() {
-            this.$router.back()
+        ...mapActions('account', ['login', 'logout']),
+        handleClick(e) {
+            e.preventDefault()
+            this.submitted = true
+            const { email, password } = this.data;
+            if (email && password) {
+                this.login({ email, password })
+            }
         }
     }
 });

@@ -12,7 +12,7 @@
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating">Email</ion-label>
-                    <ion-input type="text" v-model="data.email"></ion-input>
+                    <ion-input type="email" v-model="data.email"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating">Username</ion-label>
@@ -24,10 +24,10 @@
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating">Confirm Password</ion-label>
-                    <ion-input type="password" v-model="data.confirmpassword"></ion-input>
+                    <ion-input type="password" v-model="data.confirm_password"></ion-input>
                 </ion-item>
                 <ion-card-content>
-                    <ion-button expand="block" @click="register">Register</ion-button>
+                    <ion-button expand="block" @click="handleClick">Register</ion-button>
                 </ion-card-content>
                 <router-link to="/login">Already registered? Click here to login.</router-link>
             </ion-card>
@@ -36,20 +36,13 @@
 </template>
 
 <script>
-import { IonContent, IonHeader, IonButtons, IonMenuButton, IonPage, IonTitle, IonToolbar, IonInput } from '@ionic/vue';
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
+import { mapState, mapActions } from 'vuex'
 
 export default defineComponent({
-    name: 'Home',
+    name: 'Register',
     components: {
-        IonContent,
-        IonHeader,
-        IonPage,
-        IonTitle,
-        IonToolbar,
-        IonInput,
-        IonButtons,
-        IonMenuButton
+        //
     },
     data() {
         return {
@@ -58,16 +51,20 @@ export default defineComponent({
                 email: '',
                 username: '',
                 password: '',
-                confirmpassword: '',
-            }
+                confirm_password: '',
+            },
+            submitted: false
         }
     },
+    computed: {
+        ...mapState('account', ['status'])
+    },
     methods: {
-        register() {
-            console.log(this.data)
-        },
-        back() {
-            this.$router.back()
+        ...mapActions('account', ['register']),
+        handleClick(e) {
+            e.preventDefault()
+            this.submitted = true
+            this.register(this.data)
         }
     }
 });
